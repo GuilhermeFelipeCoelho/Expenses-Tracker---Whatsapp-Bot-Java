@@ -17,4 +17,16 @@ A WhatsApp bot designed to help organize expenses dynamically, with real-time da
 - **Version Control:** Git, GitHub
 - **Optional:** Docker, Flyway (for DB versioning), Swagger (API documentation)
 
-## 📂 Project Structure
+## ⚙️ How to Run
+```bash
+# Clone the repository
+git clone https://github.com/seu-usuario/seu-repositorio.git
+
+# Navigate into the project
+cd seu-repositorio
+
+# Build the project
+./mvnw clean install
+
+# Run the application
+./mvnw spring-boot:run
