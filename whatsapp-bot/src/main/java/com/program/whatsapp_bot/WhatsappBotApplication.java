@@ -9,5 +9,4 @@ public class WhatsappBotApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WhatsappBotApplication.class, args);
 	}
-
 }
