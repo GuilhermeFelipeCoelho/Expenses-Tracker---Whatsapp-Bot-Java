@@ -10,7 +10,7 @@ import io.swagger.v3.oas.models.info.Info;
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI apiOpenAPI() {
+    public OpenAPI whatsappExpenseTrackerOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
                         .title("API WhatsApp Expense Tracker")
