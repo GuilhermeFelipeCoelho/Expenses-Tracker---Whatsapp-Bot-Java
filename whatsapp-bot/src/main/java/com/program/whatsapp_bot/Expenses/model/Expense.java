@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,12 +17,18 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String categoria;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category; 
+
     private BigDecimal valor;
     private LocalDate data;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+
     
     public Long getId() {
         return id;
@@ -29,12 +37,12 @@ public class Expense {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getCategoria() {
-        return categoria;
+    public Category getCategoria() {
+        return category;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setCategoria(Category category) {
+        this.category = category;
     }
 
     public BigDecimal getValor() {
@@ -59,5 +67,13 @@ public class Expense {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 }

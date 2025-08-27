@@ -39,4 +39,8 @@ public class User {
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
     }
+
+    public void addCategory(Category category) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
