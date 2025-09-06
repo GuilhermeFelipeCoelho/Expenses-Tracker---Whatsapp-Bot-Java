@@ -31,7 +31,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @Autowired
-    private UserService userService; // Temporário: para obter o User. Substituir por autenticação real.
+    private UserService userService; // Temporário para obter o User.
 
     // Método auxiliar TEMPORÁRIO para obter o User.
     // Em uma aplicação real, você obteria o usuário do contexto de segurança (Spring Security).

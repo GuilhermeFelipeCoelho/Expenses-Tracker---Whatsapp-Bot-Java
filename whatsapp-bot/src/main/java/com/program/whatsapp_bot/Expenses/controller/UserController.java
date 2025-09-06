@@ -1,6 +1,6 @@
 package com.program.whatsapp_bot.Expenses.controller;
 
-import org.springframework.beans.factory.annotation.Autowired; // Importe o DTO correto
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.program.whatsapp_bot.Expenses.dto.CreateUserRequestDTO; // Importe o @RequestBody CORRETO
+import com.program.whatsapp_bot.Expenses.dto.CreateUserRequestDTO;
 import com.program.whatsapp_bot.Expenses.model.User;
 import com.program.whatsapp_bot.Expenses.service.UserService;
 
