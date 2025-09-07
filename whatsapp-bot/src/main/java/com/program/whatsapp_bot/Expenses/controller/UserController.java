@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.program.whatsapp_bot.Expenses.dto.CreateUserRequestDTO;
 import com.program.whatsapp_bot.Expenses.dto.Request.CreateUserRequestDTO;
 import com.program.whatsapp_bot.Expenses.dto.Response.UserResponseDTO;
 import com.program.whatsapp_bot.Expenses.model.User;
