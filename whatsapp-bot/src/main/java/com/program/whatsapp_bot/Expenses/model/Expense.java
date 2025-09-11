@@ -3,6 +3,8 @@ package com.program.whatsapp_bot.Expenses.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.program.whatsapp_bot.Expenses.enums.tipo;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +27,9 @@ public class Expense {
 
     private String descricao;
     
-    private LocalDateTime dataRegistro = LocalDateTime.now();
+    private LocalDateTime data_transacao = LocalDateTime.now();
+
+    private tipo tipo;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
