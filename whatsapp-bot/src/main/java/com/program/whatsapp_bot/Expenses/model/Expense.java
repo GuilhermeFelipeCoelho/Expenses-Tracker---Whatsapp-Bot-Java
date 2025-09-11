@@ -1,5 +1,8 @@
 package com.program.whatsapp_bot.Expenses.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,16 +11,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "despesas")
+@Table(name = "expense")
 @Data
 public class Expense {
 
-    @Id // Esta anotação define a chave primária
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Esta anotação configura a geração automática do ID pelo banco de dados
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private BigDecimal valor;
@@ -26,11 +27,11 @@ public class Expense {
     
     private LocalDateTime dataRegistro = LocalDateTime.now();
 
-    @ManyToOne // Relacionamento com a entidade Usuario
-    @JoinColumn(name = "usuario_id")
-    private User usuario;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @ManyToOne // Relacionamento com a entidade Categoria
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
