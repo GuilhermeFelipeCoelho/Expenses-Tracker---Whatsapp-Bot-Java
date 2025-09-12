@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.program.whatsapp_bot.Expenses.dto.Request.CategoriaRequestDTO;
-import com.program.whatsapp_bot.Expenses.dto.Response.CategoriaResponseDTO;
-import com.program.whatsapp_bot.Expenses.model.Categoria;
-import com.program.whatsapp_bot.Expenses.service.CategoriaService;
+import com.program.whatsapp_bot.Expenses.dto.Request.CategoryRequestDTO;
+import com.program.whatsapp_bot.Expenses.dto.Response.CategoryResponseDTO ;
+import com.program.whatsapp_bot.Expenses.model.Category;
+import com.program.whatsapp_bot.Expenses.service.CategoryService;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,33 +23,33 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/categorias")
-public class CategoriaController {
+public class CategoryController {
 
     @Autowired
-    private CategoriaService categoriaService;
+    private CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoriaResponseDTO> criarCategoria(@RequestBody CategoriaRequestDTO requestDTO) {
-        Categoria novaCategoria = categoriaService.salvar(requestDTO);
-        CategoriaResponseDTO responseDTO = new CategoriaResponseDTO(novaCategoria);
+    public ResponseEntity<CategoryResponseDTO> criarCategoria(@RequestBody CategoryRequestDTO requestDTO) {
+        Category novaCategoria = categoryService.salvar(requestDTO);
+        CategoryResponseDTO responseDTO = new CategoryResponseDTO(novaCategoria);
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoriaResponseDTO>> listarCategorias() {
-        List<Categoria> categorias = categoriaService.buscarTodas();
-        List<CategoriaResponseDTO> responseDTOs = categorias.stream()
-            .map(CategoriaResponseDTO::new)
+    public ResponseEntity<List<CategoryResponseDTO>> listarCategorias() {
+        List<Category> categorias = categoryService.buscarTodas();
+        List<CategoryResponseDTO> responseDTOs = categorias.stream()
+            .map(CategoryResponseDTO::new)
             .collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoriaResponseDTO> buscarPorId(@PathVariable Long id) {
-        Optional<Categoria> categoriaOptional = categoriaService.buscarPorId(id);
+    public ResponseEntity<CategoryResponseDTO> buscarPorId(@PathVariable Long id) {
+        Optional<Category> categoriaOptional = categoryService.buscarPorId(id);
         
         if (categoriaOptional.isPresent()) {
-            CategoriaResponseDTO responseDTO = new CategoriaResponseDTO(categoriaOptional.get());
+            CategoryResponseDTO responseDTO = new CategoryResponseDTO(categoriaOptional.get());
             return ResponseEntity.ok(responseDTO);
         }
         
@@ -57,11 +57,11 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriaResponseDTO> atualizarCategoria(@PathVariable Long id, @RequestBody CategoriaRequestDTO requestDTO) {
-        Categoria categoriaAtualizada = categoriaService.atualizar(id, requestDTO);
+    public ResponseEntity<CategoryResponseDTO> atualizarCategoria(@PathVariable Long id, @RequestBody CategoryRequestDTO requestDTO) {
+        Category categoriaAtualizada = categoryService.atualizar(id, requestDTO);
 
         if (categoriaAtualizada != null) {
-            CategoriaResponseDTO responseDTO = new CategoriaResponseDTO(categoriaAtualizada);
+            CategoryResponseDTO responseDTO = new CategoryResponseDTO(categoriaAtualizada);
             return ResponseEntity.ok(responseDTO);
         }
 
@@ -70,7 +70,7 @@ public class CategoriaController {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarCategoria(@PathVariable Long id) {
-        boolean deletada = categoriaService.deletar(id);
+        boolean deletada = categoryService.deletar(id);
         
         if (deletada) {
             return ResponseEntity.noContent().build();

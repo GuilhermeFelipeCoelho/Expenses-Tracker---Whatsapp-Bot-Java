@@ -1,5 +1,6 @@
 package com.program.whatsapp_bot.Expenses.model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

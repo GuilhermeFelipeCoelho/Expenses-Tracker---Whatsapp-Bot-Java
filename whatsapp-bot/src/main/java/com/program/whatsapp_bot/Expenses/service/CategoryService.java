@@ -2,41 +2,41 @@ package com.program.whatsapp_bot.Expenses.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.program.whatsapp_bot.Expenses.dto.Request.CategoriaRequestDTO;
-import com.program.whatsapp_bot.Expenses.model.Categoria;
+import com.program.whatsapp_bot.Expenses.dto.Request.CategoryRequestDTO;
+import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.repository.CategoriaRepository;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoriaService {
+public class CategoryService {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public Categoria salvar(CategoriaRequestDTO requestDTO) {
-        Categoria categoria = new Categoria();
+    public Category salvar(CategoryRequestDTO requestDTO) {
+        Category categoria = new Category();
         categoria.setNome(requestDTO.getNome());
         return categoriaRepository.save(categoria);
     }
 
-    public List<Categoria> buscarTodas() {
+    public List<Category> buscarTodas() {
         return categoriaRepository.findAll();
     }
 
-    public Optional<Categoria> buscarPorId(Long id) {
+    public Optional<Category> buscarPorId(Long id) {
         return categoriaRepository.findById(id);
     }
     
-    public Optional<Categoria> buscarPorNome(String nome) {
+    public Optional<Category> buscarPorNome(String nome) {
         return categoriaRepository.findByNome(nome);
     }
 
-    public Categoria atualizar(Long id, CategoriaRequestDTO requestDTO) {
-        Optional<Categoria> categoriaOptional = categoriaRepository.findById(id);
+    public Category atualizar(Long id, CategoryRequestDTO requestDTO) {
+        Optional<Category> categoriaOptional = categoriaRepository.findById(id);
         
         if (categoriaOptional.isPresent()) {
-            Categoria categoria = categoriaOptional.get();
+            Category categoria = categoriaOptional.get();
             categoria.setNome(requestDTO.getNome());
             return categoriaRepository.save(categoria);
         }
