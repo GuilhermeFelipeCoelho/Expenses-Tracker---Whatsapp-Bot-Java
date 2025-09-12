@@ -7,7 +7,7 @@ import com.program.whatsapp_bot.Expenses.dto.Request.ExpenserequestDTO;
 import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.model.Expense;
 import com.program.whatsapp_bot.Expenses.model.User;
-import com.program.whatsapp_bot.Expenses.model.tipo;
+import com.program.whatsapp_bot.Expenses.enums.tipo;
 import com.program.whatsapp_bot.Expenses.repository.CategoryRepository;
 import com.program.whatsapp_bot.Expenses.repository.ExpenseRepository;
 import com.program.whatsapp_bot.Expenses.repository.UserRepository;
@@ -41,7 +41,7 @@ public class ExpenseService {
             despesa.setTipo(tipo.receita);
         }
         despesa.setValor(dto.getValor());
-        despesa.setUsuario(usuario);
+        despesa.setUser(usuario);
         despesa.setCategoria(categoria);
 
         return expenseRepository.save(despesa);
@@ -69,7 +69,7 @@ public class ExpenseService {
             Expense despesa = new Expense();
             despesa.setDescricao(requestDTO.getDescricao());
             despesa.setValor(requestDTO.getValor());
-            despesa.setUsuario(usuario);
+            despesa.setUser(usuario);
             despesa.setCategoria(categoria);
             return expenseRepository.save(expense);
         }

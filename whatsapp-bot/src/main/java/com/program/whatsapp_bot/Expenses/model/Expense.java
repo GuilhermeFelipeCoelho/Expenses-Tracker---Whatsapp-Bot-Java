@@ -38,7 +38,7 @@ public class Expense {
     private tipo tipo;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "usuario_id")
     private User user;
 
 

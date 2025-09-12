@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.model.Expense;
 import com.program.whatsapp_bot.Expenses.model.User;
-import com.program.whatsapp_bot.Expenses.model.tipo;
 
 
 import lombok.Data;
@@ -17,10 +16,8 @@ public class ExpenseResponseDTO {
     private BigDecimal valor;
 
     private String descricao;
-    
-   // private LocalDateTime data_transacao = LocalDateTime.now();
 
-    private tipo tipo;
+    private com.program.whatsapp_bot.Expenses.enums.tipo tipo;
 
     private User usuario;
 
@@ -31,7 +28,7 @@ public class ExpenseResponseDTO {
         this.descricao = expense.getDescricao();
         this.valor = expense.getValor();
         this.categoria = expense.getCategoria();
-        this.tipo =expense.getTipo();
-        this.usuario = expense.getUsuario();
+        this.tipo = expense.getTipo();
+        this.usuario = expense.getUser();
     }
 }
