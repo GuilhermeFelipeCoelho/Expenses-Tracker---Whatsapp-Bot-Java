@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.program.whatsapp_bot.Expenses.dto.Request.ExpenserequestDTO;
+import com.program.whatsapp_bot.Expenses.dto.Request.ExpenseRequestDTO;
 import com.program.whatsapp_bot.Expenses.dto.Response.ExpenseResponseDTO;
 import com.program.whatsapp_bot.Expenses.model.Expense;
 
@@ -23,7 +23,7 @@ public class ExpenseController {
 
 
      @PostMapping("/cadastrar")
-    public ResponseEntity<ExpenseResponseDTO> cadastrar(@RequestBody ExpenserequestDTO request) {
+    public ResponseEntity<ExpenseResponseDTO> cadastrar(@RequestBody ExpenseRequestDTO request) {
         Expense novaExpense = expenseService.salvar(request);
         ExpenseResponseDTO responseDTO = new ExpenseResponseDTO(novaExpense);
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);

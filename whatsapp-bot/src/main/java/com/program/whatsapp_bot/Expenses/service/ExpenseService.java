@@ -3,7 +3,7 @@ package com.program.whatsapp_bot.Expenses.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.program.whatsapp_bot.Expenses.dto.Request.ExpenserequestDTO;
+import com.program.whatsapp_bot.Expenses.dto.Request.ExpenseRequestDTO;
 import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.model.Expense;
 import com.program.whatsapp_bot.Expenses.model.User;
@@ -26,7 +26,7 @@ public class ExpenseService {
     @Autowired
     private CategoryRepository categoriaRepository;
 
-    public Expense salvar(ExpenserequestDTO dto) {
+    public Expense salvar(ExpenseRequestDTO dto) {
         User usuario = userRepository.findById(dto.getUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
@@ -55,7 +55,7 @@ public class ExpenseService {
         return expenseRepository.findById(id);
     }
 
-    public Expense atualizar(Long id, ExpenserequestDTO requestDTO) {
+    public Expense atualizar(Long id, ExpenseRequestDTO requestDTO) {
         Optional<Expense> expenseOptional = expenseRepository.findById(id);
 
         if (expenseOptional.isPresent()) {
