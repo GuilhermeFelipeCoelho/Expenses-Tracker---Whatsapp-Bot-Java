@@ -20,7 +20,7 @@ import com.program.whatsapp_bot.Expenses.service.UserService;
 
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired

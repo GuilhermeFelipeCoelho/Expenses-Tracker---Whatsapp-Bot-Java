@@ -21,18 +21,14 @@ import com.program.whatsapp_bot.Expenses.dto.Response.CategoryResponseDTO ;
 import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.service.CategoryService;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 @RestController
-@RequestMapping("/api/categorias")
+@RequestMapping("/api/category")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public ResponseEntity<CategoryResponseDTO> criarCategoria(@RequestBody CategoryRequestDTO requestDTO) {
         Category novaCategoria = categoryService.salvar(requestDTO);
         CategoryResponseDTO responseDTO = new CategoryResponseDTO(novaCategoria);

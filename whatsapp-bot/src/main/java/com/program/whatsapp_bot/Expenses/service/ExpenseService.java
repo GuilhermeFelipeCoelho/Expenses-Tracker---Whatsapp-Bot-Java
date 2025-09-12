@@ -1,20 +1,20 @@
 package com.program.whatsapp_bot.Expenses.service;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.program.whatsapp_bot.Expenses.dto.Request.ExpenseRequestDTO;
+import com.program.whatsapp_bot.Expenses.enums.tipo;
 import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.model.Expense;
 import com.program.whatsapp_bot.Expenses.model.User;
-import com.program.whatsapp_bot.Expenses.enums.tipo;
 import com.program.whatsapp_bot.Expenses.repository.CategoryRepository;
 import com.program.whatsapp_bot.Expenses.repository.ExpenseRepository;
 import com.program.whatsapp_bot.Expenses.repository.UserRepository;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ExpenseService {
@@ -53,6 +53,10 @@ public class ExpenseService {
 
     public Optional<Expense> buscarPorId(Long id) {
         return expenseRepository.findById(id);
+    }
+
+    public List<Expense> buscarPorUserId(Long id){
+        return expenseRepository.findByUserId(id);
     }
 
     public Expense atualizar(Long id, ExpenseRequestDTO requestDTO) {
