@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.program.whatsapp_bot.Expenses.dto.Request.CategoryRequestDTO;
 import com.program.whatsapp_bot.Expenses.model.Category;
-import com.program.whatsapp_bot.Expenses.repository.CategoriaRepository;
+import com.program.whatsapp_bot.Expenses.repository.CategoryRepository;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 public class CategoryService {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoryRepository categoriaRepository;
 
     public Category salvar(CategoryRequestDTO requestDTO) {
         Category categoria = new Category();

@@ -8,7 +8,7 @@ import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.model.Expense;
 import com.program.whatsapp_bot.Expenses.model.User;
 import com.program.whatsapp_bot.Expenses.model.tipo;
-import com.program.whatsapp_bot.Expenses.repository.CategoriaRepository;
+import com.program.whatsapp_bot.Expenses.repository.CategoryRepository;
 import com.program.whatsapp_bot.Expenses.repository.ExpenseRepository;
 import com.program.whatsapp_bot.Expenses.repository.UserRepository;
 
@@ -24,7 +24,7 @@ public class ExpenseService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoryRepository categoriaRepository;
 
     public Expense salvar(ExpenserequestDTO dto) {
         User usuario = userRepository.findById(dto.getUsuario())

@@ -7,6 +7,6 @@ import com.program.whatsapp_bot.Expenses.model.Category;
 import java.util.Optional;
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<Category, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
     Optional<Category> findByNome(String nome);
 }
