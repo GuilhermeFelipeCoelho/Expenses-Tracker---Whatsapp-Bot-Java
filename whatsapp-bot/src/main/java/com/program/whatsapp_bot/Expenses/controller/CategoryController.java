@@ -17,27 +17,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.program.whatsapp_bot.Expenses.dto.Request.CategoryRequestDTO;
-import com.program.whatsapp_bot.Expenses.dto.Response.CategoryResponseDTO;
+import com.program.whatsapp_bot.Expenses.dto.Response.CategoryResponseDTO ;
 import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.service.CategoryService;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/categorias")
 public class CategoryController {
 
     @Autowired
-    private CategoryService categoriaService;
+    private CategoryService categoryService;
 
     @PostMapping
     public ResponseEntity<CategoryResponseDTO> criarCategoria(@RequestBody CategoryRequestDTO requestDTO) {
-        Category novaCategoria = categoriaService.salvar(requestDTO);
+        Category novaCategoria = categoryService.salvar(requestDTO);
         CategoryResponseDTO responseDTO = new CategoryResponseDTO(novaCategoria);
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<CategoryResponseDTO>> listarCategorias() {
-        List<Category> categorias = categoriaService.buscarTodas();
+        List<Category> categorias = categoryService.buscarTodas();
         List<CategoryResponseDTO> responseDTOs = categorias.stream()
             .map(CategoryResponseDTO::new)
             .collect(Collectors.toList());
@@ -46,7 +50,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponseDTO> buscarPorId(@PathVariable Long id) {
-        Optional<Category> categoriaOptional = categoriaService.buscarPorId(id);
+        Optional<Category> categoriaOptional = categoryService.buscarPorId(id);
         
         if (categoriaOptional.isPresent()) {
             CategoryResponseDTO responseDTO = new CategoryResponseDTO(categoriaOptional.get());
@@ -57,8 +61,9 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponseDTO> attCategoria(@PathVariable Long id, @RequestBody CategoryRequestDTO requestDTO) {
-        Category categoriaAtualizada = categoriaService.atualizar(id, requestDTO);
+    public ResponseEntity<CategoryResponseDTO> atualizarCategoria(@PathVariable Long id, @RequestBody CategoryRequestDTO requestDTO) {
+        Category categoriaAtualizada = categoryService.atualizar(id, requestDTO);
+
 
         if (categoriaAtualizada != null) {
             CategoryResponseDTO responseDTO = new CategoryResponseDTO(categoriaAtualizada);
@@ -70,7 +75,8 @@ public class CategoryController {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarCategoria(@PathVariable Long id) {
-        boolean deletada = categoriaService.deletar(id);
+        boolean deletada = categoryService.deletar(id);
+
         
         if (deletada) {
             return ResponseEntity.noContent().build();

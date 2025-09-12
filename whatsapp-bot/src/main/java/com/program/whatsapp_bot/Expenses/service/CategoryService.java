@@ -1,14 +1,12 @@
 package com.program.whatsapp_bot.Expenses.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.program.whatsapp_bot.Expenses.dto.Request.CategoryRequestDTO;
 import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.repository.CategoryRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {

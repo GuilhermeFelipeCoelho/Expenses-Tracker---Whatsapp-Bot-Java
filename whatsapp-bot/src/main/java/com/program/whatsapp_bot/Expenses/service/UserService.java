@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.program.whatsapp_bot.Expenses.model.User;
-import com.program.whatsapp_bot.Expenses.repository.UsuarioRepository;
+import com.program.whatsapp_bot.Expenses.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -14,7 +14,7 @@ import com.program.whatsapp_bot.Expenses.dto.Request.CreateUserRequestDTO;
 public class UserService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UserRepository usuarioRepository;
 
     public Optional<User> findByWaId(String waId) {
         return usuarioRepository.findByWaId(waId);
