@@ -1,6 +1,11 @@
 package com.program.whatsapp_bot.Expenses.model;
 
+
 import jakarta.persistence.Column;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import com.program.whatsapp_bot.Expenses.enums.tipo;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,8 +16,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transacoes")
@@ -34,9 +37,10 @@ public class Expense {
     @Column(nullable = false)
     private tipo tipo;
 
-    @ManyToOne // Relacionamento com a entidade Usuario
-    @JoinColumn(name = "usuario_id")
-    private User usuario;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     @ManyToOne // Relacionamento com a entidade Categoria
     @JoinColumn(name = "categoria_id")

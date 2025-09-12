@@ -1,5 +1,9 @@
 package com.program.whatsapp_bot.Expenses.controller;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +64,7 @@ public class CategoryController {
     public ResponseEntity<CategoryResponseDTO> atualizarCategoria(@PathVariable Long id, @RequestBody CategoryRequestDTO requestDTO) {
         Category categoriaAtualizada = categoryService.atualizar(id, requestDTO);
 
+
         if (categoriaAtualizada != null) {
             CategoryResponseDTO responseDTO = new CategoryResponseDTO(categoriaAtualizada);
             return ResponseEntity.ok(responseDTO);
@@ -71,6 +76,7 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarCategoria(@PathVariable Long id) {
         boolean deletada = categoryService.deletar(id);
+
         
         if (deletada) {
             return ResponseEntity.noContent().build();

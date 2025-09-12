@@ -1,7 +1,5 @@
 package com.program.whatsapp_bot.Expenses.dto;
 
-//package com.program.whatsapp_bot.dto;
-
 import lombok.Getter;
 import lombok.Setter;
 

@@ -7,6 +7,7 @@ import com.program.whatsapp_bot.Expenses.model.Expense;
 import com.program.whatsapp_bot.Expenses.model.User;
 import com.program.whatsapp_bot.Expenses.model.tipo;
 
+
 import lombok.Data;
 
 @Data
@@ -33,5 +34,4 @@ public class ExpenseResponseDTO {
         this.tipo =expense.getTipo();
         this.usuario = expense.getUsuario();
     }
-
 }
