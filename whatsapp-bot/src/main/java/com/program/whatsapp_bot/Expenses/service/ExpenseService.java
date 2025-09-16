@@ -1,6 +1,7 @@
 package com.program.whatsapp_bot.Expenses.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,8 +56,45 @@ public class ExpenseService {
         return expenseRepository.findById(id);
     }
 
-    public List<Expense> buscarPorUserId(Long id){
+    public List<Expense> buscarPorUserId(Long id) {
         return expenseRepository.findByUserId(id);
+    }
+
+    public List<Expense> buscarDespesasFiltradas(Long userId, Long categoriaId, tipo tipo, LocalDateTime inicio, LocalDateTime fim) {
+
+        boolean temCategoria = categoriaId != null;
+        boolean temDatas = inicio != null && fim != null;
+        boolean temTipo = tipo != null;
+
+        // Combinações de 3 filtros
+        if (temCategoria && temDatas && temTipo) {
+            return expenseRepository.findByUserIdAndCategoriaIdAndTipoAndDataTransacaoBetween(userId, categoriaId, tipo, inicio, fim);
+        }
+
+        // Combinações de 2 filtros
+        if (temCategoria && temDatas) {
+            return expenseRepository.findByUserIdAndCategoriaIdAndDataTransacaoBetween(userId, categoriaId, inicio, fim);
+        }
+        if (temCategoria && temTipo) {
+            return expenseRepository.findByUserIdAndCategoriaIdAndTipo(userId, categoriaId, tipo);
+        }
+        if (temDatas && temTipo) {
+            return expenseRepository.findByUserIdAndTipoAndDataTransacaoBetween(userId, tipo, inicio, fim);
+        }
+
+        // Combinações de 1 filtro
+        if (temCategoria) {
+            return expenseRepository.findByUserIdAndCategoriaId(userId, categoriaId);
+        }
+        if (temTipo) {
+            return expenseRepository.findByUserIdAndTipo(userId, tipo);
+        }
+        if (temDatas) {
+            return expenseRepository.findByUserIdAndDataTransacaoBetween(userId, inicio, fim);
+        }
+
+        // Nenhum filtro, apenas busca por userId
+        return expenseRepository.findByUserId(userId);
     }
 
     public Expense atualizar(Long id, ExpenseRequestDTO requestDTO) {

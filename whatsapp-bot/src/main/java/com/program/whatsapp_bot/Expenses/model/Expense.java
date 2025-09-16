@@ -30,8 +30,9 @@ public class Expense {
     private BigDecimal valor;
 
     private String descricao;
-
-    private LocalDateTime data_transacao = LocalDateTime.now();
+    
+    @Column(name = "data_transacao")
+    private LocalDateTime dataTransacao = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
