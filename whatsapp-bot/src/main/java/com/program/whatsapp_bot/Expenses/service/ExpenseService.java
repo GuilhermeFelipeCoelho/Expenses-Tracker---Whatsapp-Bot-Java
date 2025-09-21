@@ -102,17 +102,19 @@ public class ExpenseService {
 
         if (expenseOptional.isPresent()) {
             Expense expense = expenseOptional.get();
-            User usuario = userRepository.findById(requestDTO.getUsuario())
-                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
             Category categoria = categoriaRepository.findById(requestDTO.getCategoria())
                     .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
-            Expense despesa = new Expense();
-            despesa.setDescricao(requestDTO.getDescricao());
-            despesa.setValor(requestDTO.getValor());
-            despesa.setUser(usuario);
-            despesa.setCategoria(categoria);
+            expense.setDescricao(requestDTO.getDescricao());
+            expense.setValor(requestDTO.getValor());
+            expense.setCategoria(categoria);
+            if (expense.getValor().compareTo(BigDecimal.ZERO) < 0) {
+                expense.setTipo(tipo.despesa);
+            } 
+            else {
+                expense.setTipo(tipo.receita);
+            }
+
             return expenseRepository.save(expense);
         }
 
