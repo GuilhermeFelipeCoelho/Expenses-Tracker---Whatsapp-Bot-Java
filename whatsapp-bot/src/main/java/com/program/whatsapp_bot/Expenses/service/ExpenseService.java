@@ -60,7 +60,8 @@ public class ExpenseService {
         return expenseRepository.findByUserId(id);
     }
 
-    public List<Expense> buscarDespesasFiltradas(Long userId, Long categoriaId, tipo tipo, LocalDateTime inicio, LocalDateTime fim) {
+    public List<Expense> buscarDespesasFiltradas(Long userId, Long categoriaId, tipo tipo, LocalDateTime inicio,
+            LocalDateTime fim) {
 
         boolean temCategoria = categoriaId != null;
         boolean temDatas = inicio != null && fim != null;
@@ -68,12 +69,14 @@ public class ExpenseService {
 
         // Combinações de 3 filtros
         if (temCategoria && temDatas && temTipo) {
-            return expenseRepository.findByUserIdAndCategoriaIdAndTipoAndDataTransacaoBetween(userId, categoriaId, tipo, inicio, fim);
+            return expenseRepository.findByUserIdAndCategoriaIdAndTipoAndDataTransacaoBetween(userId, categoriaId, tipo,
+                    inicio, fim);
         }
 
         // Combinações de 2 filtros
         if (temCategoria && temDatas) {
-            return expenseRepository.findByUserIdAndCategoriaIdAndDataTransacaoBetween(userId, categoriaId, inicio, fim);
+            return expenseRepository.findByUserIdAndCategoriaIdAndDataTransacaoBetween(userId, categoriaId, inicio,
+                    fim);
         }
         if (temCategoria && temTipo) {
             return expenseRepository.findByUserIdAndCategoriaIdAndTipo(userId, categoriaId, tipo);
@@ -110,8 +113,7 @@ public class ExpenseService {
             expense.setCategoria(categoria);
             if (expense.getValor().compareTo(BigDecimal.ZERO) < 0) {
                 expense.setTipo(tipo.despesa);
-            } 
-            else {
+            } else {
                 expense.setTipo(tipo.receita);
             }
 
@@ -122,8 +124,12 @@ public class ExpenseService {
     }
 
     public boolean deletar(Long id) {
-        if (expenseRepository.existsById(id)) {
-            expenseRepository.deleteById(id);
+        Expense expense = expenseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transação não encontrada"));
+        if(expense != null){
+            // Altera o status em vez de deletar
+            expense.setAtivo(false);
+            expenseRepository.save(expense);
             return true;
         }
         return false;

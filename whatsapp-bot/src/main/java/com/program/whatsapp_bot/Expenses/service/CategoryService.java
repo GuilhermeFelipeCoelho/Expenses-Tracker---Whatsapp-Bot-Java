@@ -27,26 +27,31 @@ public class CategoryService {
     public Optional<Category> buscarPorId(Long id) {
         return categoriaRepository.findById(id);
     }
-    
+
     public Optional<Category> buscarPorNome(String nome) {
         return categoriaRepository.findByNome(nome);
     }
 
     public Category atualizar(Long id, CategoryRequestDTO requestDTO) {
         Optional<Category> categoriaOptional = categoriaRepository.findById(id);
-        
+
         if (categoriaOptional.isPresent()) {
             Category categoria = categoriaOptional.get();
             categoria.setNome(requestDTO.getNome());
             return categoriaRepository.save(categoria);
         }
-        
+
         return null;
     }
-    
+
     public boolean deletar(Long id) {
-        if (categoriaRepository.existsById(id)) {
-            categoriaRepository.deleteById(id);
+        Category category = categoriaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transação não encontrada"));
+
+        if (category != null) {
+            // Altera o status em vez de deletar
+            category.setAtivo(false);
+            categoriaRepository.save(category);
             return true;
         }
         return false;

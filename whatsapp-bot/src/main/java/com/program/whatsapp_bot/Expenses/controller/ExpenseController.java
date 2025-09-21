@@ -88,8 +88,16 @@ public class ExpenseController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean deletar(@PathVariable Long id) {
-        return expenseService.deletar(id);
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        boolean deletado = expenseService.deletar(id);
+
+        if (deletado) {
+            // Deletion was successful, return 204 No Content
+            return ResponseEntity.noContent().build();
+        } else {
+            // Expense not found, return 404 Not Found
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
