@@ -4,6 +4,9 @@ package com.program.whatsapp_bot.Expenses.model;
 import jakarta.persistence.Column;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.SQLRestriction;
+
 import com.program.whatsapp_bot.Expenses.enums.tipo;
 
 import jakarta.persistence.Entity;
@@ -19,6 +22,7 @@ import lombok.Data;
 
 @Entity
 @Table(name = "transacoes")
+@SQLRestriction("ativo = true")
 @Data
 public class Expense {
 
@@ -30,6 +34,12 @@ public class Expense {
     private BigDecimal valor;
 
     private String descricao;
+
+    @Column(name = "data_atualizacao")
+    private LocalDateTime dataAtualizacao;
+
+    @Column(name = "ativo")
+    private Boolean ativo = true;
     
     @Column(name = "data_transacao")
     private LocalDateTime dataTransacao = LocalDateTime.now();

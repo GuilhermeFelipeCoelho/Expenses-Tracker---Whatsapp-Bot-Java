@@ -4,15 +4,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +26,6 @@ import com.program.whatsapp_bot.Expenses.dto.Response.ExpenseResponseDTO;
 import com.program.whatsapp_bot.Expenses.enums.tipo;
 import com.program.whatsapp_bot.Expenses.model.Expense;
 import com.program.whatsapp_bot.Expenses.service.ExpenseService;
-
 
 @RestController
 @RequestMapping("/api/expense")
@@ -39,6 +41,19 @@ public class ExpenseController {
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
+    @GetMapping("/expenseBy/{id}")
+    public ResponseEntity<ExpenseResponseDTO> getExpensesById(@PathVariable Long id) {
+        Optional<Expense> expenseOptional = expenseService.buscarPorId(id);
+
+        if (expenseOptional.isPresent()) {
+            Expense expense = expenseOptional.get();
+            ExpenseResponseDTO responseDTO = new ExpenseResponseDTO(expense);
+            return ResponseEntity.ok(responseDTO); // Retorna 200 OK com o DTO
+        } else {
+            return ResponseEntity.notFound().build(); // Retorna 404 Not Found
+        }
+    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<List<ExpenseResponseDTO>> getExpensesByUserId(Long id) {
         List<Expense> expenses = expenseService.buscarPorUserId(id);
@@ -50,16 +65,39 @@ public class ExpenseController {
 
     @GetMapping("/{userId}/filtered")
     public List<Expense> getFilteredExpensesByUser(
-        @PathVariable Long userId,
-        @RequestParam(required = false) Long categoriaId,
-        @RequestParam(required = false) tipo tipo,
-        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate dataInicio,
-        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate dataFim){
+            @PathVariable Long userId,
+            @RequestParam(required = false) Long categoriaId,
+            @RequestParam(required = false) tipo tipo,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate dataInicio,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate dataFim) {
         LocalDateTime inicio = (dataInicio != null) ? dataInicio.atStartOfDay() : LocalDateTime.of(1970, 1, 1, 0, 0, 0);
-        LocalDateTime fim = (dataFim != null) ? dataFim.atTime(LocalTime.MAX) : LocalDateTime.of(9999, 12, 31, 23, 59, 59);
-
+        LocalDateTime fim = (dataFim != null) ? dataFim.atTime(LocalTime.MAX)
+                : LocalDateTime.of(9999, 12, 31, 23, 59, 59);
 
         return expenseService.buscarDespesasFiltradas(userId, categoriaId, tipo, inicio, fim);
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<ExpenseResponseDTO> AtualizarbyId(@PathVariable Long id, @RequestBody ExpenseRequestDTO dto) {
+        Expense responseDTOatt = expenseService.atualizar(id, dto);
+        if (responseDTOatt != null) {
+            ExpenseResponseDTO responseDTO = new ExpenseResponseDTO(responseDTOatt);
+            return ResponseEntity.ok(responseDTO);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        boolean deletado = expenseService.deletar(id);
+
+        if (deletado) {
+            // Deletion was successful, return 204 No Content
+            return ResponseEntity.noContent().build();
+        } else {
+            // Expense not found, return 404 Not Found
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

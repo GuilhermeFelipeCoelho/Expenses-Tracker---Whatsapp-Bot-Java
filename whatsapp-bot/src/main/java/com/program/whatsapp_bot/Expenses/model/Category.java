@@ -1,5 +1,10 @@
 package com.program.whatsapp_bot.Expenses.model;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.SQLRestriction;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +14,7 @@ import lombok.Data;
 
 @Entity
 @Table(name = "categorias")
+@SQLRestriction("ativo = true")
 @Data
 public class Category {
 
@@ -17,4 +23,10 @@ public class Category {
     private Long id;
 
     private String nome;
+    
+    @Column(name = "data_atualizacao")
+    private LocalDateTime dataAtualizacao;
+
+    @Column(name = "ativo")
+    private Boolean ativo = true;
 }

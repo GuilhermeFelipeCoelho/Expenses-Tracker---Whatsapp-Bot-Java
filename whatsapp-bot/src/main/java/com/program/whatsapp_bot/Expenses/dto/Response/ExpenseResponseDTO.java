@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import com.program.whatsapp_bot.Expenses.model.Category;
 import com.program.whatsapp_bot.Expenses.model.Expense;
 import com.program.whatsapp_bot.Expenses.model.User;
+import com.program.whatsapp_bot.Expenses.enums.tipo;
 
 
 import lombok.Data;
@@ -14,13 +15,9 @@ public class ExpenseResponseDTO {
     private Long id;
 
     private BigDecimal valor;
-
     private String descricao;
-
-    private com.program.whatsapp_bot.Expenses.enums.tipo tipo;
-
+    private tipo tipo;
     private User usuario;
-
     private Category categoria;
 
     public ExpenseResponseDTO(Expense expense) {
