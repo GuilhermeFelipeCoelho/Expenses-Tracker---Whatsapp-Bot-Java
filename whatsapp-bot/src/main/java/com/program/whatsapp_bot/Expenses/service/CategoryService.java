@@ -49,7 +49,6 @@ public class CategoryService {
                 .orElseThrow(() -> new RuntimeException("Transação não encontrada"));
 
         if (category != null) {
-            // Altera o status em vez de deletar
             category.setAtivo(false);
             categoriaRepository.save(category);
             return true;

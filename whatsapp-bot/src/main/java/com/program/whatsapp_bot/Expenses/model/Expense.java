@@ -26,9 +26,9 @@ import lombok.Data;
 @Data
 public class Expense {
 
-    @Id // Esta anotação define a chave primária
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Esta anotação configura a geração automática do ID pelo banco
-                                                        // de dados
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+                                                        
     private Long id;
 
     private BigDecimal valor;
@@ -53,7 +53,7 @@ public class Expense {
     private User user;
 
 
-    @ManyToOne // Relacionamento com a entidade Categoria
+    @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Category categoria;
 }
