@@ -67,13 +67,10 @@ public class ExpenseService {
         boolean temDatas = inicio != null && fim != null;
         boolean temTipo = tipo != null;
 
-        // Combinações de 3 filtros
         if (temCategoria && temDatas && temTipo) {
             return expenseRepository.findByUserIdAndCategoriaIdAndTipoAndDataTransacaoBetween(userId, categoriaId, tipo,
                     inicio, fim);
         }
-
-        // Combinações de 2 filtros
         if (temCategoria && temDatas) {
             return expenseRepository.findByUserIdAndCategoriaIdAndDataTransacaoBetween(userId, categoriaId, inicio,
                     fim);
@@ -84,8 +81,6 @@ public class ExpenseService {
         if (temDatas && temTipo) {
             return expenseRepository.findByUserIdAndTipoAndDataTransacaoBetween(userId, tipo, inicio, fim);
         }
-
-        // Combinações de 1 filtro
         if (temCategoria) {
             return expenseRepository.findByUserIdAndCategoriaId(userId, categoriaId);
         }
@@ -96,7 +91,6 @@ public class ExpenseService {
             return expenseRepository.findByUserIdAndDataTransacaoBetween(userId, inicio, fim);
         }
 
-        // Nenhum filtro, apenas busca por userId
         return expenseRepository.findByUserId(userId);
     }
 
@@ -127,7 +121,6 @@ public class ExpenseService {
         Expense expense = expenseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Transação não encontrada"));
         if(expense != null){
-            // Altera o status em vez de deletar
             expense.setAtivo(false);
             expenseRepository.save(expense);
             return true;
